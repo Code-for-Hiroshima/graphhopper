@@ -27,7 +27,7 @@ import java.util.List;
 import static com.graphhopper.routing.util.VehicleEncodedValuesFactory.*;
 
 public class VehicleEncodedValues {
-    public static final List<String> OUTDOOR_VEHICLES = Arrays.asList(BIKE, RACINGBIKE, MOUNTAINBIKE, FOOT, WHEELCHAIR);
+    public static final List<String> OUTDOOR_VEHICLES = Arrays.asList(BIKE, RACINGBIKE, MOUNTAINBIKE, FOOT, WHEELCHAIR, VISUALLY_IMPAIRED);
 
     private final String name;
     private final BooleanEncodedValue accessEnc;
@@ -53,6 +53,15 @@ public class VehicleEncodedValues {
             throw new IllegalArgumentException("wheelchair always uses two directions");
         return foot(new PMap(properties)
                 .putObject("name", properties.getString("name", "wheelchair"))
+                .putObject("speed_two_directions", true)
+        );
+    }
+
+    public static VehicleEncodedValues visually_impaired(PMap properties) {
+        if (properties.has("speed_two_directions"))
+            throw new IllegalArgumentException("visually_impaired always uses two directions");
+        return foot(new PMap(properties)
+                .putObject("name", properties.getString("name", "visually_impaired"))
                 .putObject("speed_two_directions", true)
         );
     }

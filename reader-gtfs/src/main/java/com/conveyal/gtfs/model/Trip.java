@@ -43,6 +43,7 @@ public class Trip extends Entity {
     public String shape_id;
     public int    bikes_allowed;
     public int    wheelchair_accessible;
+    public int    visually_impaired_accessible;
     public String feed_id;
 
     public static class Loader extends Entity.Loader<Trip> {
@@ -71,6 +72,7 @@ public class Trip extends Entity {
             t.shape_id        = getStringField("shape_id", false);
             t.bikes_allowed   = getIntField("bikes_allowed", false, 0, 2);
             t.wheelchair_accessible = getIntField("wheelchair_accessible", false, 0, 2);
+            t.visually_impaired_accessible = getIntField("visually_impaired_accessible", false, 0, 2);
             t.feed = feed;
             t.feed_id = feed.feedId;
             feed.trips.put(t.trip_id, t);
