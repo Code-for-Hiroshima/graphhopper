@@ -8,6 +8,7 @@ import com.graphhopper.routing.ev.VehicleAccess;
 import com.graphhopper.routing.util.WayAccess;
 import com.graphhopper.util.PMap;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class visually_impairedAccessParser extends FootAccessParser {
     private final Set<String> excludeSurfaces = new HashSet<>();
     private final Set<String> excludeSmoothness = new HashSet<>();
     private final int maxInclinePercent = 6;
+    private boolean traffic_signals = false;    
 
     public visually_impairedAccessParser(EncodedValueLookup lookup, PMap properties) {
         this(lookup.getBooleanEncodedValue(properties.getString("name", VehicleAccess.key("visually_impaired"))));
@@ -114,6 +116,27 @@ public class visually_impairedAccessParser extends FootAccessParser {
             }
         }
 
+        traffic_signals=false;
+        Arrays.asList(
+            "sound",
+            "vibration",
+            "arrow",
+            "minimap",
+            "floor_vibration",
+            "countdown",
+            "floor_light"
+        ).forEach(s -> {
+            if(way.hasTag("traffic_signals:"+s,"yes"))
+                traffic_signals=true;
+        });
+
+        Set<String> tacttile_paving = new HashSet<>();
+        tacttile_paving.add("yes");
+        tacttile_paving.add("contrasted");
+        tacttile_paving.add("primitive");
+
+        if (!(traffic_signals || way.hasTag("tactile_paving",tacttile_paving)))
+            return WayAccess.CAN_SKIP;        
         return super.getAccess(way);
     }
 
