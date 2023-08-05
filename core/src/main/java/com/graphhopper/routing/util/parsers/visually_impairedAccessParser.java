@@ -135,7 +135,10 @@ public class visually_impairedAccessParser extends FootAccessParser {
         tacttile_paving.add("contrasted");
         tacttile_paving.add("primitive");
 
-        if (!(traffic_signals || way.hasTag("tactile_paving",tacttile_paving)))
+        Set<String> footway = new HashSet<>();
+        footway.add("crossing");
+
+        if (!(traffic_signals || way.hasTag("tactile_paving",tacttile_paving) || way.hasTag("footway",footway)) )
             return WayAccess.CAN_SKIP;        
         return super.getAccess(way);
     }
