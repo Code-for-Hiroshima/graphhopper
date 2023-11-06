@@ -28,7 +28,7 @@ public enum RoadClass {
     SERVICE("service"), ROAD("road"), TRACK("track"),
     BRIDLEWAY("bridleway"), STEPS("steps"), CYCLEWAY("cycleway"),
     PATH("path"), LIVING_STREET("living_street"), FOOTWAY("footway"),
-    PEDESTRIAN("pedestrian"), PLATFORM("platform"), CORRIDOR("corridor");
+    PEDESTRIAN("pedestrian"), PLATFORM("platform"), CORRIDOR("corridor"), TACTILE_PAVING("tactile_paving");
 
     public static final String KEY = "road_class";
 

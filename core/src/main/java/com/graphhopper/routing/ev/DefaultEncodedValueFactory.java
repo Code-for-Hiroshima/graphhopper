@@ -87,6 +87,8 @@ public class DefaultEncodedValueFactory implements EncodedValueFactory {
             return AverageSlope.create();
         } else if (Curvature.KEY.equals(name)) {
             return Curvature.create();
+        } else if (Tactile_paving.KEY.equals(name)) {
+            return new EnumEncodedValue<>(Tactile_paving.KEY, Tactile_paving.class);
         } else
             throw new IllegalArgumentException("DefaultEncodedValueFactory cannot find EncodedValue " + name);
     }
